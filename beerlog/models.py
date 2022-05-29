@@ -3,7 +3,7 @@ from sqlmodel import SQLModel, Field
 from sqlmodel import select
 from pydantic import validator
 from statistics import mean
-
+from datetime import datetime
 
 class Beer(SQLModel, table=True):
     id: Optional[int] = Field(primary_key=True, default=None, index=True)
@@ -13,6 +13,7 @@ class Beer(SQLModel, table=True):
     image: int
     cost: int
     rate: int = 0
+    date: datetime = Field(default_factory=datetime.now)
 
     @validator("flavor", "image", "cost")
     def validate_ratings(cls, v, field):
